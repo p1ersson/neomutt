@@ -175,6 +175,29 @@ static int alias_data_observer(struct NotifyCallback *nc)
 }
 
 /**
+ * alias_sort_observer - Listen for `sort_alias` configuration changes and reorders alias list
+ */
+static int alias_sort_observer(struct NotifyCallback *nc)
+{
+  if (!nc->event_data)
+    return -1;
+  if (nc->event_type != NT_CONFIG)
+    return 0;
+
+  struct EventConfig *ec = nc->event_data;
+
+  if (!mutt_str_equal(ec->name, "sort_alias"))
+    return 0;
+
+  struct AliasMenuData *mdata = nc->global_data;
+
+  qsort(mdata->av, mdata->num_views, sizeof(struct AliasView *),
+        ((C_SortAlias & SORT_MASK) == SORT_ADDRESS) ? alias_sort_address : alias_sort_name);
+
+  return 0;
+}
+
+/**
  * dlg_select_alias - Display a menu of Aliases
  * @param buf    Buffer for expanded aliases
  * @param buflen Length of buffer
@@ -203,6 +226,8 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
   menu->mdata = mdata;
 
   notify_observer_add(NeoMutt->notify, NT_ALIAS, alias_data_observer, menu);
+  notify_observer_add(NeoMutt->notify, NT_CONFIG, alias_sort_observer, mdata);
+
   mutt_menu_push_current(menu);
 
   if ((C_SortAlias & SORT_MASK) != SORT_ORDER)
