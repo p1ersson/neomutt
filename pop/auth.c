@@ -386,6 +386,26 @@ static const struct PopAuth pop_authenticators[] = {
 };
 
 /**
+ * pop_auth_is_valid - Check if string is a valid pop authentication method
+ * @param authenticator Authenticator string to check
+ * @retval bool Result, e.g. True if argument is a valid auth method
+ *
+ * Validate whether an input string is an accepted pop authentication method as
+ * defined by pop_authenticators.
+ */
+bool pop_auth_is_valid(const char *authenticator)
+{
+  for (size_t i = 0; i < mutt_array_size(pop_authenticators); i++)
+  {
+    const struct PopAuth *auth = &pop_authenticators[i];
+    if (auth->method && mutt_istr_equal(auth->method, authenticator))
+      return true;
+  }
+
+  return false;
+}
+
+/**
  * pop_authenticate - Authenticate with a POP server
  * @param adata POP Account data
  * @retval num Result, e.g. #POP_A_SUCCESS
