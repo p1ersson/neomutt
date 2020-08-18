@@ -832,6 +832,7 @@ static void init_variables(struct ConfigSet *cs)
 #ifdef USE_SIDEBAR
   CONFIG_INIT_VARS(cs, sidebar);
 #endif
+  CONFIG_INIT_VARS(cs, preview);
 }
 
 /**
