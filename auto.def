@@ -115,6 +115,8 @@ options {
 # Testing
   testing=0                 => "Enable Unit Testing"
   coverage=0                => "Enable Coverage Testing"
+# Developement
+  devel-preview             => "Enable the preview window (DEVEL)"
 # Configure with pkg-config
   pkgconf=0                 => "Use pkg-config during configure"
 # Enable all options
@@ -137,10 +139,11 @@ if {1} {
   # Keep sorted, please.
   foreach opt {
     autocrypt bdb coverage debug-backtrace debug-graphviz debug-notify
-    debug-parse-test debug-window doc everything fmemopen full-doc gdbm gnutls
-    gpgme gss homespool idn idn2 include-path-in-cflags inotify kyotocabinet
-    lmdb locales-fix lua lz4 mixmaster nls notmuch pcre2 pgp pkgconf qdbm
-    rocksdb sasl smime sqlite ssl testing tdb tokyocabinet zlib zstd
+    debug-parse-test debug-window devel-preview doc everything fmemopen full-doc
+    gdbm gnutls gpgme gss homespool idn idn2 include-path-in-cflags inotify
+    kyotocabinet lmdb locales-fix lua lz4 mixmaster nls notmuch pcre2 pgp
+    pkgconf qdbm rocksdb sasl smime sqlite ssl testing tdb tokyocabinet zlib
+    zstd
   } {
     define want-$opt [opt-bool $opt]
   }
@@ -397,6 +400,12 @@ switch [opt-val with-lock fcntl] {
 ###############################################################################
 # Locales fix
 if {[get-define want-locales-fix]} {define LOCALES_HACK}
+
+###############################################################################
+# DEVEL
+
+# Preview window
+if {[get-define want-devel-preview]} {define USE_DEVEL_PREVIEW}
 
 ###############################################################################
 # Documentation
