@@ -533,6 +533,8 @@ const struct Binding OpPost[] = { /* map: postpone */
 const struct Binding OpAlias[] = { /* map: alias */
   { "delete-entry",          OP_DELETE,                      "d" },
   { "undelete-entry",        OP_UNDELETE,                    "u" },
+  { "sort-alias",            OP_SORT,                        "o" },
+  { "sort-alias-reverse",    OP_SORT_REVERSE,                "O" },
   { NULL,                    0,                              NULL },
 };
 
