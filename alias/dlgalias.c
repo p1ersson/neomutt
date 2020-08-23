@@ -272,18 +272,18 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
         bool resort = true;
         bool reverse = (op == OP_SORT_REVERSE);
 
-        switch (mutt_multi_choice(reverse ?
-                                      /* L10N: The highlighted letters must match the "Rev-Sort" options */
-                                      _("Rev-Sort "
-                                        "(n)ame, (a)ddress or d(o)n't sort?") :
-                                      /* L10N: The highlighted letters must match the "Sort" options */
-                                      _("Sort "
-                                        "(n)ame, (a)ddress or d(o)n't sort?"),
-                                  /* L10N: These must match the highlighted letters from "Sort" and "Rev-Sort" */
-                                  _("nao")))
+        switch (mutt_multi_choice(
+            reverse ?
+                /* L10N: The highlighted letters must match the "Sort" options */
+                _("Rev-Sort (n)ame, (a)ddress or d(o)n't sort?") :
+                /* L10N: The highlighted letters must match the "Rev-Sort" options */
+                _("Sort (n)ame, (a)ddress or d(o)n't sort?"),
+            /* L10N: These must match the highlighted letters from "Sort" and "Rev-Sort" */
+            _("nao")))
         {
           case -1: /* abort */
             resort = false;
+            break;
 
           case 1: /* (n)ame */
             sort = SORT_ALIAS;
@@ -303,14 +303,8 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
         {
           sort |= reverse ? SORT_REVERSE : 0;
 
-          C_SortAlias = sort;
-          cs_subset_str_native_set(NeoMutt->sub, "sort", sort, NULL);
-          menu_data_sort(menu->mdata);
+          cs_subset_str_native_set(NeoMutt->sub, "sort_alias", sort, NULL);
           menu->redraw = REDRAW_FULL;
-        }
-        else
-        {
-          cs_subset_str_native_set(NeoMutt->sub, "sort", sort, NULL);
         }
 
         break;
@@ -342,6 +336,8 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
   }
 
   notify_observer_remove(NeoMutt->notify, alias_data_observer, menu);
+  notify_observer_remove(NeoMutt->notify, alias_sort_observer, mdata);
+
   mutt_menu_pop_current(menu);
   mutt_menu_free(&menu);
   dialog_destroy_simple_index(&dlg);
