@@ -199,6 +199,23 @@ static int alias_sort_observer(struct NotifyCallback *nc)
 }
 
 /**
+ * alias_color_observer - Listen for color configuration changes and refreshes the menu
+ */
+static int alias_color_observer(struct NotifyCallback *nc)
+{
+  if ((nc->event_type != NT_COLOR) || !nc->event_data || !nc->global_data)
+    return -1;
+
+  if (nc->event_subtype != MT_COLOR_STATUS)
+    return 0;
+
+  struct Menu *menu = nc->global_data;
+  menu->redraw = REDRAW_FULL;
+
+  return 0;
+}
+
+/**
  * dlg_select_alias - Display a menu of Aliases
  * @param buf    Buffer for expanded aliases
  * @param buflen Length of buffer
@@ -228,6 +245,7 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
 
   notify_observer_add(NeoMutt->notify, NT_ALIAS, alias_data_observer, menu);
   notify_observer_add(NeoMutt->notify, NT_CONFIG, alias_sort_observer, mdata);
+  notify_observer_add(NeoMutt->notify, NT_COLOR, alias_color_observer, menu);
 
   mutt_menu_push_current(menu);
 
@@ -275,25 +293,29 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
         switch (mutt_multi_choice(
             reverse ?
                 /* L10N: The highlighted letters must match the "Sort" options */
-                _("Rev-Sort (n)ame, (a)ddress or d(o)n't sort?") :
+                _("Rev-Sort (a)lias, a(d)dress, (u)nsorted or d(o)n't sort?") :
                 /* L10N: The highlighted letters must match the "Rev-Sort" options */
-                _("Sort (n)ame, (a)ddress or d(o)n't sort?"),
+                _("Sort (a)lias, a(d)dress, (u)nsorted or d(o)n't sort?"),
             /* L10N: These must match the highlighted letters from "Sort" and "Rev-Sort" */
-            _("nao")))
+            _("aduo")))
         {
           case -1: /* abort */
             resort = false;
             break;
 
-          case 1: /* (n)ame */
+          case 1: /* (a)lias */
             sort = SORT_ALIAS;
             break;
 
-          case 2: /* (a)ddress */
+          case 2: /* a(d)dress */
             sort = SORT_ADDRESS;
             break;
 
-          case 3: /* d(o)n’t sort */
+          case 3:
+            sort = SORT_UNSORT;
+            break;
+
+          case 4: /* d(o)n’t sort */
             sort = SORT_ORDER;
             resort = false;
             break;
@@ -337,6 +359,7 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
 
   notify_observer_remove(NeoMutt->notify, alias_data_observer, menu);
   notify_observer_remove(NeoMutt->notify, alias_sort_observer, mdata);
+  notify_observer_remove(NeoMutt->notify, alias_color_observer, menu);
 
   mutt_menu_pop_current(menu);
   mutt_menu_free(&menu);

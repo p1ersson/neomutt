@@ -34,6 +34,8 @@ struct Envelope;
 struct Mailbox;
 struct MuttWindow;
 
+// clang-format off
+
 /* These Config Variables are only used in commands.c */
 extern char *        C_DisplayFilter;
 extern bool          C_PipeDecode;
@@ -57,5 +59,7 @@ int  mutt_save_message_ctx(struct Email *e, bool delete_original, bool decode, b
 int  mutt_save_message(struct Mailbox *m, struct EmailList *el, bool delete_original, bool decode, bool decrypt);
 int  mutt_select_sort(bool reverse);
 void mutt_shell_escape(void);
+
+// clang-format on
 
 #endif /* MUTT_COMMANDS_H */

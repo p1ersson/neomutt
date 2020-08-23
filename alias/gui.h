@@ -27,12 +27,15 @@
 
 struct Alias;
 
+// clang-format off
+
 /**
  * AliasView - GUI data wrapping an Alias
  */
 struct AliasView
 {
   int num;             ///< Index number in list
+  int orig_seq;        ///< Sequence in alias config file
   bool is_tagged;      ///< Is it tagged?
   bool is_deleted;     ///< Is it deleted?
   struct Alias *alias; ///< Alias
@@ -58,5 +61,7 @@ void menu_data_sort        (struct AliasMenuData *mdata);
 
 int alias_sort_address(const void *a, const void *b);
 int alias_sort_name   (const void *a, const void *b);
+
+// clang-format on
 
 #endif /* MUTT_ALIAS_GUI_H */
