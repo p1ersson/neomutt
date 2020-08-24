@@ -34,8 +34,6 @@ extern const struct Mapping SortKeyMethods[];
 extern const struct Mapping SortMethods[];
 extern const struct Mapping SortSidebarMethods[];
 
-// clang-format off
-
 /* ... DT_SORT */
 #define DT_SORT_LAST    0x0800 ///< Sort flag for -last prefix
 #define DT_SORT_REVERSE 0x1000 ///< Sort flag for -reverse prefix
@@ -83,7 +81,5 @@ enum SortType
 #define SORT_MASK    ((1 << 8) - 1) ///< Mask for the sort id
 #define SORT_REVERSE  (1 << 8)      ///< Reverse the order of the sort
 #define SORT_LAST     (1 << 9)      ///< Sort thread by last-X, e.g. received date
-
-// clang-format on
 
 #endif /* MUTT_CONFIG_SORT_H */
