@@ -206,9 +206,6 @@ static int alias_color_observer(struct NotifyCallback *nc)
   if ((nc->event_type != NT_COLOR) || !nc->event_data || !nc->global_data)
     return -1;
 
-  if (nc->event_subtype != MT_COLOR_STATUS)
-    return 0;
-
   struct Menu *menu = nc->global_data;
   menu->redraw = REDRAW_FULL;
 
@@ -249,10 +246,10 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
 
   mutt_menu_push_current(menu);
 
-  if ((C_SortAlias & SORT_MASK) != SORT_ORDER)
+  if ((C_SortAlias & SORT_MASK))
   {
     qsort(mdata->av, mdata->num_views, sizeof(struct AliasView *),
-          ((C_SortAlias & SORT_MASK) == SORT_ADDRESS) ? alias_sort_address : alias_sort_name);
+          alias_get_sort_function());
   }
 
   for (int i = 0; i < menu->max; i++)
@@ -293,11 +290,11 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
         switch (mutt_multi_choice(
             reverse ?
                 /* L10N: The highlighted letters must match the "Sort" options */
-                _("Rev-Sort (a)lias, a(d)dress, (u)nsorted or d(o)n't sort?") :
+                _("Rev-Sort (a)lias, a(d)dress or (u)nsorted?") :
                 /* L10N: The highlighted letters must match the "Rev-Sort" options */
-                _("Sort (a)lias, a(d)dress, (u)nsorted or d(o)n't sort?"),
+                _("Sort (a)lias, a(d)dress or (u)nsorted?"),
             /* L10N: These must match the highlighted letters from "Sort" and "Rev-Sort" */
-            _("aduo")))
+            _("adu")))
         {
           case -1: /* abort */
             resort = false;
@@ -311,13 +308,8 @@ static void dlg_select_alias(char *buf, size_t buflen, struct AliasMenuData *mda
             sort = SORT_ADDRESS;
             break;
 
-          case 3:
-            sort = SORT_UNSORT;
-            break;
-
-          case 4: /* d(o)n’t sort */
+          case 3: /* (u)nsorted */
             sort = SORT_ORDER;
-            resort = false;
             break;
         }
 

@@ -99,6 +99,14 @@ int alias_sort_address(const void *a, const void *b)
   return RSORT(r);
 }
 
+/**
+ * alias_sort_unsort - Compare two Aliases by their original configuration position
+ * @param a First  Alias to compare
+ * @param b Second Alias to compare
+ * @retval -1 a precedes b
+ * @retval  0 a and b are identical
+ * @retval  1 b precedes a
+ */
 int alias_sort_unsort(const void *a, const void *b)
 {
   const struct AliasView *av_a = *(struct AliasView const *const *) a;
@@ -147,8 +155,10 @@ int (*alias_get_sort_function())(const void *a, const void *b)
       return alias_sort_name;
     case SORT_ADDRESS:
       return alias_sort_address;
-    case SORT_UNSORT:
+    case SORT_ORDER:
       return alias_sort_unsort;
+    default:
+      return alias_sort_name;
   }
 }
 
@@ -271,7 +281,7 @@ int menu_data_alias_delete(struct AliasMenuData *mdata, struct Alias *alias)
  */
 void menu_data_sort(struct AliasMenuData *mdata)
 {
-  if ((C_SortAlias & SORT_MASK) != SORT_ORDER)
+  if ((C_SortAlias & SORT_MASK))
   {
     qsort(mdata->av, mdata->num_views, sizeof(struct AliasView *),
           alias_get_sort_function());

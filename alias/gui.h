@@ -27,8 +27,6 @@
 
 struct Alias;
 
-// clang-format off
-
 /**
  * AliasView - GUI data wrapping an Alias
  */
@@ -59,9 +57,10 @@ int  menu_data_alias_add   (struct AliasMenuData *mdata, struct Alias *alias);
 int  menu_data_alias_delete(struct AliasMenuData *mdata, struct Alias *alias);
 void menu_data_sort        (struct AliasMenuData *mdata);
 
+int (*alias_get_sort_function())(const void *a, const void *b);
+
 int alias_sort_address(const void *a, const void *b);
 int alias_sort_name   (const void *a, const void *b);
-
-// clang-format on
+int alias_sort_unsort (const void *a, const void *b);
 
 #endif /* MUTT_ALIAS_GUI_H */
