@@ -256,7 +256,7 @@ static int start_curses(void)
   /* Now that curses is set up, we drop back to normal screen mode.
    * This simplifies displaying error messages to the user.
    * The first call to refresh() will swap us back to curses screen mode. */
-  endwin();
+  // endwin();
   return 0;
 }
 
@@ -660,6 +660,16 @@ int main(int argc, char *argv[], char *envp[])
     TsSupported = mutt_ts_capability();
     mutt_window_set_root(COLS, LINES);
   }
+
+  const char *url = "https://google.com/?q=asdfadsfadsfafasdsdfasdqeoiuqwoiqurpqoi+qwerQ+WERQer+qwerQEWrqwqwerqer+QwRQWErqer+QRQEq+qerqeirqweirqwerqeriouyiqerquyreeuiyrquioeyqouioeyrqoyuqeqoyurqoeuyrqour";
+  mutt_window_printf("%s", url);
+  refresh();
+  printf("\r\n\r\n\r\n");
+  printf("%s", url);
+  fflush(stdout);
+  sleep(20);
+  endwin();
+  return 0;
 
   /* set defaults and read init files */
   int rc2 = mutt_init(cs, flags & MUTT_CLI_NOSYSRC, &commands);
