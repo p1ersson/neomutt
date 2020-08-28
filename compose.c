@@ -543,7 +543,8 @@ static int calc_envelope(struct ComposeRedrawData *rd)
     rows += calc_address(&env->bcc, &rd->bcc_list, cols, &rd->bcc_rows);
   }
   rows += calc_security(e, &rd->sec_rows);
-  rows += calc_user_hdrs(&env->userhdrs);
+  if (C_ComposeShowUserHeaders)
+    rows += calc_user_hdrs(&env->userhdrs);
 
   return rows;
 }
@@ -993,7 +994,8 @@ static void draw_envelope(struct ComposeRedrawData *rd)
 #ifdef MIXMASTER
   redraw_mix_line(&e->chain, rd, row++);
 #endif
-  row += draw_envelope_user_hdrs(rd, row);
+  if (C_ComposeShowUserHeaders)
+    row += draw_envelope_user_hdrs(rd, row);
 
   mutt_curses_set_color(MT_COLOR_STATUS);
   mutt_window_mvaddstr(rd->win_abar, 0, 0, _("-- Attachments"));
