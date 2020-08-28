@@ -30,6 +30,7 @@ struct Email;
 extern char *        C_ComposeFormat;
 extern char *        C_Ispell;
 extern unsigned char C_Postpone;
+extern bool C_ComposeShowUserHeaders;
 
 /* flags for mutt_compose_menu() */
 #define MUTT_COMPOSE_NOFREEHEADER (1 << 0)

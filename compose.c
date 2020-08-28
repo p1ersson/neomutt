@@ -99,6 +99,7 @@
 char *C_ComposeFormat; ///< Config: printf-like format string for the Compose panel's status bar
 char *C_Ispell; ///< Config: External command to perform spell-checking
 unsigned char C_Postpone; ///< Config: Save messages to the #C_Postponed folder
+bool C_ComposeShowUserHeaders; ///< Config: Whether to display customer user headers
 
 static const char *There_are_no_attachments = N_("There are no attachments");
 

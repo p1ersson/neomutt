@@ -567,6 +567,12 @@
 ** information on how to set $$compose_format.
 */
 
+{ "compose_show_user_headers", DT_BOOL, true },
+/*
+** .pp
+** When \fIset\fP, Neomutt will display custom headers on the compose screen.
+*/
+
 { "config_charset", DT_STRING, 0 },
 /*
 ** .pp
