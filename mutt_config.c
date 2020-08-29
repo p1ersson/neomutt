@@ -251,7 +251,7 @@ struct ConfigDef MainVars[] = {
     "printf-like format string for the Compose panel's status bar"
   },
   { "compose_show_user_headers", DT_BOOL, &C_ComposeShowUserHeaders, true, 0, NULL,
-    "Controls whether or not customer headers are shown in the compose envelope"
+    "Controls whether or not custom headers are shown in the compose envelope"
   },
   { "config_charset", DT_STRING, &C_ConfigCharset, 0, 0, charset_validator,
     "Character set that the config files are in"
