@@ -99,7 +99,7 @@
 char *C_ComposeFormat; ///< Config: printf-like format string for the Compose panel's status bar
 char *C_Ispell; ///< Config: External command to perform spell-checking
 unsigned char C_Postpone; ///< Config: Save messages to the #C_Postponed folder
-bool C_ComposeShowUserHeaders; ///< Config: Whether to display customer user headers
+bool C_ComposeShowUserHeaders; ///< Config: Whether to display user-defined headers
 
 static const char *There_are_no_attachments = N_("There are no attachments");
 
@@ -495,7 +495,7 @@ static int calc_security(struct Email *e, short *rows)
 }
 
 /**
- * calc_user_hdrs - Calculate how many rows are needed for user headers
+ * calc_user_hdrs - Calculate how many rows are needed for user-defined headers
  * @param hdrs Header List
  * @retval num Rows needed, limited to #MAX_USER_HDR_ROWS
  */
@@ -905,7 +905,7 @@ static int draw_envelope_addr(int field, struct AddressList *al,
 }
 
 /**
- * draw_envelope_user_hdrs - Write custom user headers to the compose window
+ * draw_envelope_user_hdrs - Write user-defined headers to the compose window
  * @param rd  Email and other compose data
  * @param row Window row to start drawing from
  */
