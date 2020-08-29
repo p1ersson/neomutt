@@ -570,7 +570,8 @@
 { "compose_show_user_headers", DT_BOOL, true },
 /*
 ** .pp
-** When \fIset\fP, Neomutt will display custom headers on the compose screen.
+** When \fIset\fP, Neomutt will display user-defined headers (set via $$my_hdr 
+** or from editing with edit_headers).
 */
 
 { "config_charset", DT_STRING, 0 },
