@@ -53,7 +53,7 @@ msgstr "redigera Reply-To-fältet"
 
 #: alias/alias.c:469 alias/alias.c:473
 msgid "Accept?"
-msgstr "Godkänn?"
+msgstr "Godkänns?"
 
 #: alias/alias.c:485 recvattach.c:602 recvattach.c:624 recvattach.c:638
 #: recvattach.c:653 recvattach.c:752
@@ -107,7 +107,7 @@ msgstr "Återställ"
 
 #: alias/dlgalias.c:63 alias/dlgquery.c:65
 msgid "Sort"
-msgstr ""
+msgstr "Sortera"
 
 #: alias/dlgalias.c:64 alias/dlgquery.c:66
 msgid "Rev-Sort"
@@ -143,7 +143,7 @@ msgstr ""
 #. L10N: The highlighted letters must match the "Rev-Sort" options
 #: alias/dlgalias.c:260 alias/dlgquery.c:464
 msgid "Sort (a)lias, a(d)dress or (u)nsorted?"
-msgstr ""
+msgstr "Sortera på (a)lias, a(d)ress eller osorterat(u)"
 
 #. L10N: These must match the highlighted letters from "Sort" and "Rev-Sort"
 #: alias/dlgalias.c:262 alias/dlgquery.c:466
@@ -385,7 +385,7 @@ msgstr "fel vid skapande av GPGME-kontext: %s"
 #. autocrypt account.
 #: autocrypt/gpgme.c:173
 msgid "Generating autocrypt key..."
-msgstr ""
+msgstr "Genererar autocrypt nyckel..."
 
 #. L10N: GPGME was unable to generate a key for some reason.
 #. %s is the error message returned by GPGME.
@@ -401,7 +401,7 @@ msgstr "Fel vid hämtning av nyckelinformation: "
 #: autocrypt/gpgme.c:249
 #, c-format
 msgid "The key %s is not usable for autocrypt"
-msgstr ""
+msgstr "Nyckel %s är inte användbar med autocrypt"
 
 #. L10N: During autocrypt account creation, this prompt asks the
 #. user whether they want to create a new GPG key for the account,
@@ -441,7 +441,7 @@ msgstr "Ändra katalog"
 
 #: browser.c:78
 msgid "Goto"
-msgstr ""
+msgstr "Gå till"
 
 #: browser.c:79 browser.c:94
 msgid "Mask"
